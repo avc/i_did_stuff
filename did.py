@@ -12,7 +12,6 @@ import sys
 import getopt
 import time
 
-
 help_message = '''
 This program lets you track how you spend your time.
 
@@ -28,6 +27,9 @@ did finish writing the I Did Stuff app
 did -l
   (List what you did in the past 24 hours)
 
+did -l 1
+  (List last thing you did.)
+
 did -l yesterday (or just y)
   (List what you did yesterday. Good for achievement record.)
 '''
@@ -37,19 +39,21 @@ class Usage(Exception):
   def __init__(self, msg):
     self.msg = msg
 
-
 def main(argv=None):
   if argv is None:
     argv = sys.argv
     
   try:
     try:
-      opts, args = getopt.getopt(argv[1:], "ho:v", ["help", "output="])
+      opts, args = getopt.getopt(argv[1:], "lho:v", ["help", "output="])
     except getopt.error, msg:
       raise Usage(msg)
   
     # option processing
     for option, value in opts:
+      if option == "-l":
+        print >> sys.stderr, "hello"
+        # did.show_tasks(value)
       if option == "-v":
         verbose = True
       if option in ("-h", "--help"):
@@ -66,9 +70,32 @@ def main(argv=None):
 
 # Class
 
+import twitter
+import config
+import os
+
 class did:
+
   def __init__(self):
-    pass
+    """ Log into Twitter
+    >>> d = did()
+    """
+    cfg = config.Config(os.path.expanduser('~/.didstuff'))
+    
+    self.twitter = twitter.Api(consumer_key = cfg.consumer_key,
+      consumer_secret = cfg.consumer_secret,
+      access_token_key = cfg.access_token_key,
+      access_token_secret = cfg.access_token_secret)
+    self.updates = self.twitter.GetUserTimeline('did_stuff')
+  
+  def show_tasks(self, what):
+    """
+    >>> d = did()
+    >>> d.show_tasks(1)
+    Test message from python-twitter.
+    """
+    if what == 1:
+      print self.updates[0].text
 
 
 if __name__ == "__main__":
