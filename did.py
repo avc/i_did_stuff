@@ -46,7 +46,6 @@ def main(argv=None):
   
   except Usage, err:
     print >> sys.stderr, sys.argv[0].split("/")[-1] + ": " + str(err.msg)
-    print >> sys.stderr, "\t for help use --help"
     return 2
 
 
