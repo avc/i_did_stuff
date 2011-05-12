@@ -7,15 +7,15 @@ Created by Anthony Chan on 2011-05-11.
 Copyright (c) 2011 Anthony Chan. All rights reserved.
 """
 
-import timer
+import did
 import unittest
 
-class timer_tests(unittest.TestCase):
+class did_tests(unittest.TestCase):
   def setUp(self):
     pass
   
-  def test_some(self):
-    self.assertEqual(0, 0)
+  def test_tweet_when_no_options(self):
+    self.assertEqual(did.main('something cool'), 0)
 
 
 if __name__ == '__main__':

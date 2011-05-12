@@ -16,6 +16,19 @@ help_message = '''
 This program lets you track how you spend your time.
 
 You put a marker down at different points in the day when you start something or accomplish something (or any time in between). This will help you later estimate how much time you spend on your activities. You can be as precise as you want to be; this tool just helps you by giving you a little reminder of what you did at around that time.
+
+Try:
+did something cool
+did start writing a program 3 hours ago
+  (The "ago" part is optional. It will add some time to the activity.)
+did finish writing the I Did Stuff app
+  (It will determine how long you worked on it by subtracting when you started it.)
+
+did -l
+  (List what you did in the past 24 hours)
+
+did -l yesterday (or just y)
+  (List what you did yesterday. Good for achievement record.)
 '''
 
 
@@ -27,7 +40,6 @@ class Usage(Exception):
 def main(argv=None):
   if argv is None:
     argv = sys.argv
-    print time.time()
     
   try:
     try:
@@ -43,6 +55,8 @@ def main(argv=None):
         raise Usage(help_message)
       if option in ("-o", "--output"):
         output = value
+    
+    return 0
   
   except Usage, err:
     print >> sys.stderr, sys.argv[0].split("/")[-1] + ": " + str(err.msg)
