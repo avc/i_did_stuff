@@ -14,8 +14,13 @@ class did_tests(unittest.TestCase):
   def setUp(self):
     pass
   
-  def test_tweet_when_no_options(self):
+  def test_return_0_when_no_options(self):
+    self.assertEqual(did.main(''), 0)
     self.assertEqual(did.main('something cool'), 0)
+  
+  #skip
+  # def test_unrecognized_option_returns_error(self):
+  #   self.assertNotEqual(did.main('-l'), 0)
 
 
 if __name__ == '__main__':
