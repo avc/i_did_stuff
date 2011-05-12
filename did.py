@@ -5,6 +5,7 @@ timer.py
 
 Created by Anthony Chan on 2011-05-11.
 Copyright (c) 2011 Anthony Chan. All rights reserved.
+
 """
 
 import sys
@@ -71,4 +72,6 @@ class did:
 
 
 if __name__ == "__main__":
+  import doctest
+  doctest.testmod()
   sys.exit(main())
